@@ -26,7 +26,6 @@ function App() {
       });
 setTodos(todosArray.filter(item=>item.status === status));
     });
-
     return () => unsub();
   }, [status]);
   
@@ -39,11 +38,13 @@ setTodos(todosArray.filter(item=>item.status === status));
       status:"Done"
     })
   }
+ 
+  
   const handleDelete = async (todo)=>{
     await deleteDoc(doc(db,"todos",todo.id))
   }
   return (
-    <div className="App">
+    <div className="App">  
       <Form 
         handleStatus={handleStatus} status={status}
       />

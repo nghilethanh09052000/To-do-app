@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {BsPlusCircleFill} from 'react-icons/bs';
 import {db} from '../firebase'
 import { collection, addDoc } from 'firebase/firestore';
-const Form = ({handleStatus,status}) => {
+const Form = ({handleStatus}) => {
     const [name, setName] = useState("");
     const handleSubmit = async (e) =>{
         e.preventDefault()
