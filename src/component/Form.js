@@ -1,17 +1,40 @@
-import {BsPlusCircleFill,BsFillFilterCircleFill} from 'react-icons/bs';
-
-const Form = () => {
+import { useState } from 'react';
+import {BsPlusCircleFill} from 'react-icons/bs';
+import {db} from '../firebase'
+import { collection, addDoc } from 'firebase/firestore';
+const Form = ({handleStatus}) => {
+    const [name, setName] = useState("");
+    const handleSubmit = async (e) =>{
+        e.preventDefault()
+        if(name!==""){
+            await addDoc(collection(db,"todos"),{
+                name:name,
+                completed:false
+            });
+            setName("")
+        }
+    }
     return (
     <div>
         <header>Nghi's Todo List</header>
             <div className="inputField">
-                <input type="text" />
-                <button>
-                    <BsPlusCircleFill/>
-                </button>
-                <button>
-                    <BsFillFilterCircleFill/>
-                </button>
+                <input 
+                    type="text" 
+                    value={name}
+                    placeholder="Enter todo"
+                    onChange={(e)=>setName(e.target.value)}
+                />
+                <div className='buttonRight'>
+                    <button onClick={handleSubmit} >
+                        <BsPlusCircleFill/>
+                    </button>
+                    <div className='select'>
+                        <select onChange={(e)=> handleStatus(e.target.value)}>
+                            <option value={false}>Doing</option>
+                            <option value={true}>Done</option>
+                        </select>
+                    </div>
+                </div>
             </div>
     </div>  
     );
