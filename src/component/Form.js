@@ -2,14 +2,14 @@ import { useState } from 'react';
 import {BsPlusCircleFill} from 'react-icons/bs';
 import {db} from '../firebase'
 import { collection, addDoc } from 'firebase/firestore';
-const Form = ({handleStatus}) => {
+const Form = ({handleStatus,status}) => {
     const [name, setName] = useState("");
     const handleSubmit = async (e) =>{
         e.preventDefault()
         if(name!==""){
             await addDoc(collection(db,"todos"),{
                 name:name,
-                completed:false
+                status:"Doing"
             });
             setName("")
         }
@@ -30,8 +30,8 @@ const Form = ({handleStatus}) => {
                     </button>
                     <div className='select'>
                         <select onChange={(e)=> handleStatus(e.target.value)}>
-                            <option value={false}>Doing</option>
-                            <option value={true}>Done</option>
+                            <option value="Doing">Doing</option>
+                            <option value="Done">Done</option>
                         </select>
                     </div>
                 </div>

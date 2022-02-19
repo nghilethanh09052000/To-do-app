@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [todos, setTodos]= useState([]);
-  const [status , setStatus] = useState(false)
+  const [status , setStatus] = useState("Doing")
   useEffect(() => {
     const q = query(collection(db, "todos"));
     const unsub = onSnapshot(q, (querySnapshot) => {
@@ -24,21 +24,19 @@ function App() {
           ...doc.data(),
            id: doc.id });
       });
-      setTodos(todosArray.filter( (item) => item.completed === status ));
-      console.log(todosArray.filter( (item) => item.completed === status))
-      console.log(todos)
+setTodos(todosArray.filter(item=>item.status === status));
     });
 
     return () => unsub();
   }, [status]);
   
-  const handleStatus = async (e) =>{
-    await setStatus(e)
+  const handleStatus = (status) =>{
+    setStatus(status)
   }
 
   const handleComplete = async (todo)=>{
     await updateDoc(doc(db,"todos",todo.id),{
-      completed:!todo.completed
+      status:"Done"
     })
   }
   const handleDelete = async (todo)=>{
@@ -46,9 +44,8 @@ function App() {
   }
   return (
     <div className="App">
-    {console.log(status)}
       <Form 
-        handleStatus={handleStatus}
+        handleStatus={handleStatus} status={status}
       />
       <ul>
         {todos.map((todo)=>(
