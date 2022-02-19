@@ -7,6 +7,6 @@
 <h1>Technologies used in this project:</h1>
 <p>Reactjs, firebase, javascript, html, css, hook</p>
 <h1>Screenshot from the app</h1>
-<img src="./assets/Capture.PNG">
-<img src="./assets/Capture1.PNG">
+<img src="/assets/Capture.PNG">
+<img src="/assets/Capture1.PNG">
 
